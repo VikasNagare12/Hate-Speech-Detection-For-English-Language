@@ -27,9 +27,7 @@ df['POS'] = tokenized_texts
 df['class'] = data['class']
   
 #1. Sentimental features
-#write adjectives,adverbs and verbs in pos_tag.csv 
-                    
-'''
+#write adjectives,adverbs and verbs in pos_tag.csv                   
 df_len = df.shape[0] 
 file = open("pos_tag.csv","a")
 for row in range(0,df_len):
@@ -42,7 +40,6 @@ for row in range(0,df_len):
     line+="\n"
     file.write(line)
     #print(df.loc[row,'tweet'])
-'''
 #call java code to calculate sentiment scores and write them in pos_tag.csv
 #working on pos_tag.csv modified in java
 negation_list = ['not','never','neither','nor','no','nowhere','nothing']
