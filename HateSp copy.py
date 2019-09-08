@@ -1,16 +1,20 @@
-import pandas as pd
 import re
+
 import nltk
 import numpy as np
-from scipy import sparse
-nltk.download()
-nltk.download('averaged_perceptron_tagger')
-nltk.download('punkt')
-nltk.download('stopwords')
-from nltk import pos_tag
-from nltk import word_tokenize,sent_tokenize,pos_tag_sents
+import pandas as pd
+from nltk import pos_tag, pos_tag_sents, sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
-from sklearn.feature_extraction.text import CountVectorizer,TfidfVectorizer
+from scipy import sparse
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+#appling model
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+
+#nltk.download()
+#nltk.download('averaged_perceptron_tagger')
+#nltk.download('punkt')
+#nltk.download('stopwords')
 dataset=pd.read_csv('labeled_data.csv')
 data = dataset.loc[:,['class','tweet']]
 #Dataset Cleaning
@@ -182,6 +186,7 @@ for key,value in offensive_count.items():
     else:
         ratio.append({'word':key,'h1':0,'h2':0,'o1':o1,'o2':o2,'c1':0,'c2':0},ignore_index=True)
  
+
 for key,value in clean_count.items():
     if hate_count.get(key,0)==0:
         c1 = 2
@@ -316,11 +321,14 @@ all_feature=np.append(all_feature,sementic_fea,axis=1)
 all_feature=np.append(all_feature,np.asarray(Y.todense()),axis=1)
 
 all_features=sparse.csr_matrix(all_feature) 
-#appling model
-from sklearn.model_selection import train_test_split  
-X_train, X_test, y_train, y_test = train_test_split(all_features, df['class'], test_size = 0.20)  
-from sklearn.svm import SVC  
+
+
+X_train, X_test, y_train, y_test = train_test_split(all_features, df['class'], test_size = 0.20)
+
+
+
 svclassifier = SVC(kernel='rbf')  
+
 svclassifier.fit(X_train, y_train)  
 y_pred = svclassifier.predict(X_test) 
 #cheaking accuracy
