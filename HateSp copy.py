@@ -75,6 +75,7 @@ for index,row in df.iterrows():
                    neg_val=-1 
         w=re.sub("[!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~0-9]+[a-zA-Z]*","",word)
         if w in line:
+            print(line[line.index(w)-1])
             score = int(line[line.index(w)-1])*neg_val
             line[line.index(w)-1] = score
             if score<0:
