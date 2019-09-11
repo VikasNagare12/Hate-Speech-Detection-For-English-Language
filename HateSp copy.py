@@ -35,6 +35,8 @@ df['class'] = data['class']
 #write adjectives,adverbs and verbs in pos_tag.csv                   
 df_len = df.shape[0] 
 file = open("pos_tag.csv","a")
+
+
 for row in range(0,df_len):
     line=""
     tags =df.loc[row,'POS']
