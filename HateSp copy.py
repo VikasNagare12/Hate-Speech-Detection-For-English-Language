@@ -36,7 +36,7 @@ df['class'] = data['class']
 df_len = df.shape[0] 
 file = open("pos_tag.csv","a")
 
-
+'''
 for row in range(0,df_len):
     line=""
     tags =df.loc[row,'POS']
@@ -46,6 +46,7 @@ for row in range(0,df_len):
             line += str(tags[i][0])+" "
     line+="\n"
     file.write(line)
+'''
     #print(df.loc[row,'tweet'])
 #call java code to calculate sentiment scores and write them in pos_tag.csv
 #working on pos_tag.csv modified in java
@@ -77,7 +78,6 @@ for index,row in df.iterrows():
                    neg_val=-1 
         w=re.sub("[!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~0-9]+[a-zA-Z]*","",word)
         if w in line:
-            print(line[line.index(w)-1])
             score = int(line[line.index(w)-1])*neg_val
             line[line.index(w)-1] = score
             if score<0:
